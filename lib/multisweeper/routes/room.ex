@@ -8,9 +8,14 @@ defmodule RoomRouter do
   get "/get/:roomId" do
     {:ok, room} = Room.Registry.lookup(Room.Registry, roomId)
 
-    result = Room.Manager.getBoard(room)
+    board = Room.Manager.getBoard(room)
 
-    jsonResponse = Jason.encode!(%{:board => result})
+    filteredCells =
+      Room.Manager.getCells(room)
+      |> Tuple.to_list()
+      |> Enum.filter(fn cell -> cell.uncovered == true end)
+
+    jsonResponse = Jason.encode!(%{:board => board, :cells => filteredCells})
 
     conn
     |> put_resp_content_type("application/json")
@@ -23,10 +28,10 @@ defmodule RoomRouter do
 
   get "/create/:roomSlug" do
     # get this from boardSize param
-    boardSize = 10
-    bombChance = 10
+    boardSize = 15
+    bombs = 8
 
-    ok = Room.Registry.create(Room.Registry, roomSlug, boardSize, bombChance)
+    ok = Room.Registry.create(Room.Registry, roomSlug, boardSize, bombs)
 
     jsonResponse = Jason.encode!(%{:ok => ok, :roomId => roomSlug})
 

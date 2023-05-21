@@ -6,8 +6,8 @@
 
 <button on:click={() => onClick(cellReference)} class="cell {cellReference.cell ? "": "covered"}">
 
-{#if cellReference.cell && cellReference.cell.value > 0}
-    <span>{cellReference.cell.bomb ? '💣' : cellReference.cell.value}</span>
+{#if cellReference.cell}
+    <span>{cellReference.cell.bomb ? '💣' : (cellReference.cell.value ? cellReference.cell.value : '')}</span>
 {/if}
 
 </button>

@@ -17,8 +17,8 @@ export const load = (async ({ params }) => {
     `${PUBLIC_BACKEND_LOCATION}/room/get/${boardId}`
   );
 
-  const data: { board: CellIdBoard } = await boardRequest.json();
-  const { board } = data;
+  const data: { board: CellIdBoard; cells: Cell[] } = await boardRequest.json();
+  const { board, cells } = data;
 
-  return { board, boardId };
+  return { board, boardId, cells };
 }) satisfies LayoutLoad;

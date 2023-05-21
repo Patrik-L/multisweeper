@@ -11,7 +11,7 @@
     let updateNum: number;
 
     const board = data.board
-    const cells: Cell[] = []
+    const cells: Cell[] = data.cells
 
     const gameBoard: Board = {}
     for(const row of board) {
@@ -20,6 +20,11 @@
         }
     }
     
+    for (const cell of cells as Cell[]) {
+            gameBoard[cell.id].cell = cell
+       }
+
+       
     let onClick = async (cellReference: CellReference) => {
         const digRequest = await fetch(`${PUBLIC_BACKEND_LOCATION}/game/dig`, {
             method: 'POST',
@@ -39,7 +44,7 @@
 
 
        for (const cell of dig.cellUpdates as Cell[]) {
-            gameBoard[cellReference.id].cell = cell
+            gameBoard[cell.id].cell = cell
        }
 
     }
