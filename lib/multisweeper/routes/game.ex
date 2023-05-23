@@ -21,17 +21,19 @@ defmodule GameRouter do
 
     cellUpdateMap = Map.new(cellUpdate, fn x -> {x.id, x} end)
 
-    gameOver = cellUpdate |> Enum.count(&(&1.bomb === true)) |> Kernel.>=(1)
-
     updatedCells =
       Enum.map(Tuple.to_list(cells), fn cell ->
         if Map.has_key?(cellUpdateMap, cell.id), do: Map.get(cellUpdateMap, cell.id), else: cell
       end)
-      |> List.to_tuple()
+
+    gameOver =
+      updatedCells
+      |> Enum.count(&(&1.uncovered === true || &1.bomb === true))
+      |> Kernel.>=(tuple_size(cells))
 
     Logger.warn("Update: #{inspect(cellUpdateMap)}")
 
-    Room.Manager.setCells(room, updatedCells)
+    Room.Manager.setCells(room, List.to_tuple(updatedCells))
 
     # TODO: return a cell update array
     jsonResponse = Jason.encode!(%{:cellUpdates => cellUpdate, :gameOver => gameOver})
