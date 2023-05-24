@@ -1,35 +1,25 @@
 defmodule Room.Registry do
+  # We use a genServer to keep track of all room processes
   use GenServer
   require Logger
 
   Logger.info("super")
-  ## Client API
 
-  @doc """
-  Starts the registry.
-  """
   def start_link(opts) do
     GenServer.start_link(__MODULE__, :ok, opts)
   end
 
-  @doc """
-  Looks up the bucket pid for `name` stored in `server`.
-
-  Returns `{:ok, pid}` if the bucket exists, `:error` otherwise.
-  """
+  # Looks up the room pid for `name` stored in `server`.
   def lookup(server, name) do
     GenServer.call(server, {:lookup, name})
   end
 
-  @doc """
-  Ensures there is a bucket associated with the given `name` in `server`.
-  """
+  # Creates a new room
   def create(server, name, boardSize, bombChance) do
     GenServer.cast(server, {:create, name, boardSize, bombChance})
   end
 
   ## Defining GenServer Callbacks
-
   @impl true
   def init(:ok) do
     {:ok, %{}}

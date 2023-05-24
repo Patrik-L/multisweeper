@@ -1,3 +1,4 @@
+# Declares the types for a cell
 defmodule Cell do
   @derive Jason.Encoder
 

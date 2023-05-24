@@ -2,7 +2,8 @@
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
 
-    onMount(() => {
-        goto('/room/myFirstRoom')
-    })
+  onMount(() => {
+    //Quick and dirty re-route
+    goto("/room/myFirstRoom");
+  });
 </script>

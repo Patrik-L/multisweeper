@@ -6,7 +6,8 @@
 		<meta name="viewport" content="width=device-width" />
 		%sveltekit.head%
 	</head>
-	<body data-sveltekit-preload-data="hover">
+	<!-- Here we disable the right click menu accross the entire website to avoid it triggering when using flags -->
+	<body data-sveltekit-preload-data="hover" oncontextmenu="return false;">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>

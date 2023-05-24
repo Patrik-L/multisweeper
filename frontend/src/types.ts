@@ -11,6 +11,7 @@ export type CellIdBoard = Array<Array<number>>;
 export interface CellReference {
   id: number;
   cell: Cell | null;
+  flag: boolean;
 }
 
 export interface Board {

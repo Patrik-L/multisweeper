@@ -1,22 +1,22 @@
 defmodule Multisweeper.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
-  @moduledoc false
-
   use Application
+  require Logger
 
   @impl true
+  # This is the entry point to the application
   def start(_type, _args) do
+    Logger.info("Multisweeper server started on http://localhost:4000")
+
+    # Processes ran by the supervisor
     children = [
-      # Starts a worker by calling: Multisweeper.Worker.start_link(arg)
-      # {Multisweeper.Worker, arg}
       {Plug.Cowboy, scheme: :http, plug: RootRouter, options: [port: 4000]},
       {Room.Registry, name: Room.Registry}
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
+    # Options for the supervisor
     opts = [strategy: :one_for_one, name: Multisweeper.Supervisor]
+
+    # Starts a supervisor process that ensures all specified children are kept alive
     Supervisor.start_link(children, opts)
   end
 end
