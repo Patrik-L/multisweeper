@@ -39,7 +39,6 @@ defmodule Room.Manager do
     Agent.get(room, &Map.get(&1, :board))
   end
 
-  @spec getCells(atom | pid | {atom, any} | {:via, atom, any}) :: any
   def getCells(room) do
     Agent.get(room, &Map.get(&1, :cells))
   end
