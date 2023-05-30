@@ -8,7 +8,7 @@ This is a simple minesweeper project built for a university assignment with the 
 2. Static sveltekit frontend, only dong simple rendering of data recieved from the back end
 
 As the goal was to learn elixir, the application focuses on moving as much work as possible to the elixir backend.
-This has resulted in some odd architectural decitions, such as the server sending the board state incrementally to
+This has resulted in some odd architectural decision, such as the server sending the board state incrementally to
 the client.
 
 ## Installation
