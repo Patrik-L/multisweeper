@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a simple minesweeper project built for the purpose of learning elixir. The project is built using two different technologies,
+This is a simple minesweeper project built for a university assignment with the purpose of learning elixir. The project is built using two different technologies,
 
 1. Elixir backend, doing board and game management
 2. Static sveltekit frontend, only dong simple rendering of data recieved from the back end
